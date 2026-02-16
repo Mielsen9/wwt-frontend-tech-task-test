@@ -105,7 +105,7 @@ export const FilterModal = ({
 								color: '#111827'
 							}}
 						>
-							{ti('filter_title')}
+							{ti('filterTitle')}
 						</h2>
 						<button
 							onClick={handleClose}
@@ -177,7 +177,7 @@ export const FilterModal = ({
 								padding: 0
 							}}
 						>
-							{ti('clear_all')}
+							{ti('clearAll')}
 						</button>
 					</footer>
 				</div>

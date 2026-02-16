@@ -42,7 +42,7 @@ export const App = () => {
 							margin: '0 0 4px 0'
 						}}
 					>
-						{ti('app_title')}
+						{ti('appTitle')}
 					</h1>
 					<p style={{ fontSize: 14, color: '#6b7280', margin: 0 }}>
 						{ti('subtitle')}
@@ -69,7 +69,7 @@ export const App = () => {
 					}}
 				>
 					<IconFilter />
-					{ti('open_filter')}
+					{ti('openFilter')}
 					{total > 0 && (
 						<span
 							style={{

@@ -28,7 +28,7 @@ export const DebugPanel = ({ savedFilter, ti }: DebugPanelProps) => {
 					margin: '0 0 12px 0'
 				}}
 			>
-				{ti('debug_label')}
+				{ti('debugLabel')}
 			</h2>
 
 			{!hasSelections(savedFilter) ? (
@@ -40,7 +40,7 @@ export const DebugPanel = ({ savedFilter, ti }: DebugPanelProps) => {
 						margin: 0
 					}}
 				>
-					{ti('no_filter')}
+					{ti('noFilter')}
 				</p>
 			) : (
 				<pre

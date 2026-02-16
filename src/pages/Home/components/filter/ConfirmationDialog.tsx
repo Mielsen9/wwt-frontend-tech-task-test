@@ -60,7 +60,7 @@ export const ConfirmationDialog = ({
 						margin: 0
 					}}
 				>
-					{ti('confirm_title')}
+					{ti('confirmTitle')}
 				</h2>
 
 				<div
@@ -84,7 +84,7 @@ export const ConfirmationDialog = ({
 							cursor: 'pointer'
 						}}
 					>
-						{ti('use_old')}
+						{ti('useOld')}
 					</button>
 
 					<button
@@ -100,7 +100,7 @@ export const ConfirmationDialog = ({
 							cursor: 'pointer'
 						}}
 					>
-						{ti('apply_new')}
+						{ti('applyNew')}
 					</button>
 				</div>
 			</div>
