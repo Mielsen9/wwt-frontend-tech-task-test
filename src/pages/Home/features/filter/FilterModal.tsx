@@ -1,10 +1,12 @@
 import { useState } from 'react'
 
+import { FilterChoose } from '@/shared/api/types/Filter'
+import { SearchRequestFilter } from '@/shared/api/types/SearchRequest/SearchRequestFilter.ts'
+
 import { ConfirmationDialog, FilterSection } from '../../components/filter'
 import { IconClose } from '../../components/ui'
-import { BRAND_COLOR, FILTER_DATA } from '../../constants/filterData'
+import { BRAND_COLOR } from '../../constants/filterData'
 import { useFilterState } from '../../hooks/useFilterState'
-import type { SearchRequestFilter } from '../../types/filter.types'
 
 interface FilterModalProps {
 	isOpen: boolean
@@ -12,6 +14,8 @@ interface FilterModalProps {
 	savedFilter: SearchRequestFilter
 	onSave: (filter: SearchRequestFilter) => void
 	ti: (key: string) => string
+	data: FilterChoose[]
+	isLoading: boolean
 }
 
 export const FilterModal = ({
@@ -19,7 +23,9 @@ export const FilterModal = ({
 	onClose,
 	savedFilter,
 	onSave,
-	ti
+	ti,
+	data,
+	isLoading
 }: FilterModalProps) => {
 	const { local, toggleOption, reset, clearAll } = useFilterState(savedFilter)
 	const [showConfirm, setShowConfirm] = useState(false)
@@ -41,9 +47,11 @@ export const FilterModal = ({
 		reset()
 		setShowConfirm(false)
 	}
-
 	if (!isOpen) {
 		return null
+	}
+	if (isLoading) {
+		return <div>...</div>
 	}
 
 	return (
@@ -127,16 +135,19 @@ export const FilterModal = ({
 					</header>
 
 					{/* Scrollable body */}
-					<div style={{ overflowY: 'auto', flexGrow: 1, padding: '0 24px' }}>
-						{FILTER_DATA.filterItems.map(item => (
+					{data.map(item => {
+						const selected =
+							local.find(loc => loc.id === item.id)?.optionsIds ?? []
+
+						return (
 							<FilterSection
 								key={item.id}
 								filterItem={item}
-								selectedOptions={local[item.id] ?? []}
+								selectedOptions={selected}
 								onToggle={toggleOption}
 							/>
-						))}
-					</div>
+						)
+					})}
 
 					{/* Footer */}
 					<footer

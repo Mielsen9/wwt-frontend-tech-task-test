@@ -1,4 +1,4 @@
-import type { SearchRequestFilter } from '../types/filter.types'
+import { SearchRequestFilter } from '@/shared/api/types/SearchRequest/SearchRequestFilter.ts'
 
 export const countSelected = (filter: SearchRequestFilter): number => {
 	return Object.values(filter).flat().length

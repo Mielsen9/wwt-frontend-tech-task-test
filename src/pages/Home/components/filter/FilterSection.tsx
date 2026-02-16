@@ -1,4 +1,5 @@
-import type { FilterItem } from '../../types/filter.types'
+import { FilterItem } from '@/shared/api/types/Filter'
+
 import { FilterCheckbox } from '../ui'
 
 interface FilterSectionProps {
@@ -15,7 +16,7 @@ export const FilterSection = ({
 	return (
 		<section
 			aria-labelledby={`sec-${filterItem.id}`}
-			style={{ padding: '14px 0', borderBottom: '1px solid #f3f4f6' }}
+			style={{ padding: '14px', borderBottom: '1px solid #f3f4f6' }}
 		>
 			<h3
 				id={`sec-${filterItem.id}`}

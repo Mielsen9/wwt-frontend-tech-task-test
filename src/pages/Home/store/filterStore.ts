@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-import type { SearchRequestFilter } from '../types/filter.types'
+import { SearchRequestFilter } from '@/shared/api/types/SearchRequest/SearchRequestFilter.ts'
 
 interface FilterStore {
 	savedFilter: SearchRequestFilter
@@ -9,9 +9,9 @@ interface FilterStore {
 }
 
 export const useFilterStore = create<FilterStore>(set => ({
-	savedFilter: {},
+	savedFilter: [],
 
 	setSavedFilter: filter => set({ savedFilter: filter }),
 
-	clearFilter: () => set({ savedFilter: {} })
+	clearFilter: () => set({ savedFilter: [] })
 }))

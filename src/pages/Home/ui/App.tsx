@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { IconFilter } from '../components/ui'
 import { BRAND_COLOR } from '../constants/filterData'
 import { DebugPanel, FilterModal, LanguageSwitcher } from '../features/filter'
+import { useFilterData } from '../hooks/useFilterData.ts'
 import { useTranslation } from '../hooks/useTranslation'
 import type { Lang } from '../i18n/translations'
 import { useFilterStore } from '../store/filterStore'
@@ -14,7 +15,7 @@ export const App = () => {
 	const savedFilter = useFilterStore(store => store.savedFilter)
 	const setSavedFilter = useFilterStore(store => store.setSavedFilter)
 	const { ti } = useTranslation(lang)
-
+	const { data = [], isLoading } = useFilterData()
 	const total = countSelected(savedFilter)
 
 	return (
@@ -99,6 +100,8 @@ export const App = () => {
 				savedFilter={savedFilter}
 				onSave={setSavedFilter}
 				ti={ti}
+				data={data}
+				isLoading={isLoading}
 			/>
 		</main>
 	)

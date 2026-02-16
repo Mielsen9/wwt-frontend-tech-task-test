@@ -1,36 +1,46 @@
 import { useCallback, useEffect, useState } from 'react'
 
-import type { SearchRequestFilter } from '../types/filter.types'
+import { FilterType } from '@/shared/api/types/Filter/FilterType.ts'
+import { SearchRequestFilter } from '@/shared/api/types/SearchRequest/SearchRequestFilter.ts'
 
 export const useFilterState = (savedFilter: SearchRequestFilter) => {
-	const [local, setLocal] = useState<SearchRequestFilter>({})
+	const [local, setLocal] = useState<SearchRequestFilter>([])
+
 	useEffect(() => {
-		setLocal({ ...savedFilter })
+		setLocal([...savedFilter])
 	}, [savedFilter])
 
 	const toggleOption = useCallback((filterId: string, optionId: string) => {
 		setLocal(prev => {
-			const current = prev[filterId] ?? []
-			const updated = current.includes(optionId)
-				? current.filter(id => id !== optionId)
-				: [...current, optionId]
+			const existing = prev.find(item => item.id === filterId)
 
-			if (updated.length === 0) {
-				return Object.fromEntries(
-					Object.entries(prev).filter(([key]) => key !== filterId)
-				)
+			if (!existing) {
+				return [
+					...prev,
+					{ id: filterId, type: FilterType.OPTION, optionsIds: [optionId] }
+				]
 			}
 
-			return { ...prev, [filterId]: updated }
+			const updatedIds = existing.optionsIds.includes(optionId)
+				? existing.optionsIds.filter(id => id !== optionId)
+				: [...existing.optionsIds, optionId]
+
+			if (updatedIds.length === 0) {
+				return prev.filter(item => item.id !== filterId)
+			}
+
+			return prev.map(item =>
+				item.id === filterId ? { ...item, optionsIds: updatedIds } : item
+			)
 		})
 	}, [])
 
 	const reset = useCallback(() => {
-		setLocal({ ...savedFilter })
+		setLocal([...savedFilter])
 	}, [savedFilter])
 
 	const clearAll = useCallback(() => {
-		setLocal({})
+		setLocal([])
 	}, [])
 
 	return { local, toggleOption, reset, clearAll }
