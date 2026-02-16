@@ -11,8 +11,9 @@ import { countSelected } from '../utils/filter.utils'
 export const App = () => {
 	const [lang, setLang] = useState<Lang>('en')
 	const [isFilterOpen, setIsFilterOpen] = useState(false)
-	const [savedFilter, setSavedFilter] = useFilterStore()
-	const { t } = useTranslation(lang)
+	const savedFilter = useFilterStore(store => store.savedFilter)
+	const setSavedFilter = useFilterStore(store => store.setSavedFilter)
+	const { ti } = useTranslation(lang)
 
 	const total = countSelected(savedFilter)
 
@@ -41,10 +42,10 @@ export const App = () => {
 							margin: '0 0 4px 0'
 						}}
 					>
-						{t('app_title')}
+						{ti('app_title')}
 					</h1>
 					<p style={{ fontSize: 14, color: '#6b7280', margin: 0 }}>
-						{t('subtitle')}
+						{ti('subtitle')}
 					</p>
 				</header>
 
@@ -68,7 +69,7 @@ export const App = () => {
 					}}
 				>
 					<IconFilter />
-					{t('open_filter')}
+					{ti('open_filter')}
 					{total > 0 && (
 						<span
 							style={{
@@ -88,7 +89,7 @@ export const App = () => {
 
 				<DebugPanel
 					savedFilter={savedFilter}
-					t={t}
+					ti={ti}
 				/>
 			</div>
 
@@ -97,7 +98,7 @@ export const App = () => {
 				onClose={() => setIsFilterOpen(false)}
 				savedFilter={savedFilter}
 				onSave={setSavedFilter}
-				t={t}
+				ti={ti}
 			/>
 		</main>
 	)
